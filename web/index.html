@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1e9d2">
+  <title>OrderClerk AI</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="wordmark" href="#top" aria-label="OrderClerk AI home">
+      <span class="wordmark-mark">OC</span>
+      <span>OrderClerk <i>AI</i></span>
+    </a>
+    <div id="provider-pill" class="provider-pill" role="status">Checking extraction mode...</div>
+  </header>
+  <main id="top">
+    <section class="hero reveal">
+      <div>
+        <p class="eyebrow">THE COUNTER DESK / LUSAKA</p>
+        <h1>Messy messages.<br><em>Pick-ready orders.</em></h1>
+      </div>
+      <p class="hero-copy">Turn a customer note into validated catalogue lines, a stock reservation, and a picking list. Ambiguity stops at the desk instead of becoming an expensive guess.</p>
+    </section>
+    <section class="metric-strip reveal delay-1" aria-label="Workflow summary">
+      <article><strong id="metric-messages">0</strong><span>messages handled</span></article>
+      <article><strong id="metric-orders">0</strong><span>orders reserved</span></article>
+      <article><strong id="metric-review">0</strong><span>need review</span></article>
+      <article class="metric-rule"><strong>0</strong><span>silent defaults</span></article>
+    </section>
+    <section class="desk-grid reveal delay-2">
+      <article class="intake-card">
+        <div class="section-heading">
+          <div><span class="section-number">01</span><h2>Message intake</h2></div>
+          <span class="stamp">NEW ORDER</span>
+        </div>
+        <form id="order-form">
+          <div class="field-row">
+            <label>Customer
+              <input id="customer" name="customer" value="Demo Customer" maxlength="120" required>
+            </label>
+            <label>Message reference
+              <input id="external-ref" name="external_ref" maxlength="100" required>
+            </label>
+          </div>
+          <label>Customer message
+            <textarea id="message" name="message" rows="7" maxlength="5000" required>Please pack 2 bags of rice and 1 bottle of oil.</textarea>
+          </label>
+          <div class="scenario-row" aria-label="Demo message presets">
+            <button type="button" class="text-button scenario" data-scenario="clear">Clear order</button>
+            <button type="button" class="text-button scenario" data-scenario="missing">Missing quantity</button>
+            <button type="button" class="text-button scenario" data-scenario="stock">Stock shortage</button>
+          </div>
+          <button id="submit-button" class="primary-button" type="submit">
+            <span>Interpret &amp; reserve</span><span aria-hidden="true">-&gt;</span>
+          </button>
+        </form>
+      </article>
+      <aside id="result-panel" class="result-card" aria-live="polite">
+        <div class="section-heading">
+          <div><span class="section-number">02</span><h2>Clerk decision</h2></div>
+        </div>
+        <div id="result-empty" class="result-empty">
+          <div class="receipt-icon" aria-hidden="true">///</div>
+          <p>The validated order or a precise clarification will appear here.</p>
+        </div>
+        <div id="result-content" hidden></div>
+      </aside>
+    </section>
+    <section class="lower-grid reveal delay-3">
+      <article class="ledger-card">
+        <div class="section-heading">
+          <div><span class="section-number">03</span><h2>Live catalogue</h2></div>
+          <span class="microcopy">Prices are stored in integer ngwee</span>
+        </div>
+        <div id="catalogue" class="catalogue"></div>
+      </article>
+      <article class="activity-card">
+        <div class="section-heading">
+          <div><span class="section-number">04</span><h2>Desk activity</h2></div>
+        </div>
+        <div id="activity" class="activity-list"></div>
+      </article>
+    </section>
+    <section class="guardrails reveal delay-3">
+      <p class="eyebrow">BUILT FOR TRUST AT THE COUNTER</p>
+      <div>
+        <h2>The model reads.<br>The ledger decides.</h2>
+        <p>AI proposes aliases and quantities. Exact catalogue matching, integer pricing, transactional stock checks, and unique message references remain deterministic.</p>
+      </div>
+      <ol>
+        <li><span>1</span>No quantity? Ask.</li>
+        <li><span>2</span>No catalogue match? Stop.</li>
+        <li><span>3</span>Replay? Return the same order.</li>
+      </ol>
+    </section>
+  </main>
+  <footer>
+    <span>ORDERCLERK AI / LOCAL PROTOTYPE</span>
+    <span>ZMW catalogue / synthetic data</span>
+  </footer>
+</body>
+</html>

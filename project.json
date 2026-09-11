@@ -1,0 +1,25 @@
+{
+  "name": "OrderClerk AI",
+  "slug": "04-orderclerk-ai",
+  "status": "implemented-awaiting-live-model",
+  "kind": "application",
+  "event": {
+    "name": "Hyperbloom September - AI/ML",
+    "url": "https://hyperbloom-september.devpost.com/",
+    "rules": "https://hyperbloom-september.devpost.com/rules",
+    "track": "AI/ML",
+    "deadline": "2026-09-14T23:00:00+02:00",
+    "checked_at": "2026-09-11"
+  },
+  "eligibility": "Conditional: high-school/college student event; student status has not been confirmed.",
+  "estimated_effort": "4–6 hours for one working input-to-order flow with an available model API; allow additional recording time.",
+  "database": "sqlite",
+  "runtime": "python-stdlib",
+  "local_url": "http://127.0.0.1:5184",
+  "integration": {
+    "provider": "OpenAI Responses API",
+    "credential": "OPENAI_API_KEY",
+    "live_tested": false,
+    "fallback": "fixture_unverified"
+  }
+}

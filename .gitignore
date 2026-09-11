@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.env
+var/
+.env.*
+!.env.example
+.venv/
+node_modules/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+.DS_Store

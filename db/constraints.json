@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Reject duplicate inbound message",
+    "sql": "INSERT INTO incoming_messages (external_ref,customer_id,body,body_sha256,extraction_mode,model_name,extraction_json) VALUES ('DUPLICATE-001',1,'First','abc','fixture_unverified','fixture-v1','{}'),('DUPLICATE-001',1,'Second','def','fixture_unverified','fixture-v1','{}')"
+  },
+  {
+    "name": "Reject negative catalogue price",
+    "sql": "INSERT INTO products (id,sku,name,unit,price_minor) VALUES (3,'BAD-PRICE','Bad product','bag',-1)"
+  },
+  {
+    "name": "Reject order with nonexistent message",
+    "sql": "INSERT INTO orders (id,message_id) VALUES (1,999)"
+  },
+  {
+    "name": "Reject orphan reservation",
+    "sql": "INSERT INTO stock_reservations VALUES (999,'active')"
+  }
+]

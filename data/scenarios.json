@@ -1,0 +1,27 @@
+{
+  "synthetic": true,
+  "reference_date": "2026-09-11",
+  "execution_status": "implemented_in_automated_tests_fixture_unverified",
+  "scenarios": [
+    {
+      "id": "clear",
+      "description": "Please pack 2 bags of rice and 1 bottle of oil.",
+      "expected": "Two catalogue products; total calculated from current catalogue."
+    },
+    {
+      "id": "missing-quantity",
+      "description": "I want rice.",
+      "expected": "Clarification; no silent default quantity."
+    },
+    {
+      "id": "replay",
+      "description": "Import the same external message twice.",
+      "expected": "One message and at most one order."
+    },
+    {
+      "id": "stock",
+      "description": "Request more oil than is available.",
+      "expected": "Shortage surfaced; no over-reservation."
+    }
+  ]
+}
