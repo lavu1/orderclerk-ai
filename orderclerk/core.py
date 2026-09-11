@@ -78,6 +78,25 @@ def initialize_database(db_path: Path = DEFAULT_DB_PATH) -> None:
     with connect_database(db_path) as connection:
         connection.execute("PRAGMA journal_mode = WAL")
         connection.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
+        stored = connection.execute("SELECT sql FROM sqlite_master WHERE name='incoming_messages'").fetchone()[0]
+        if "'ollama'" not in stored:
+            new_definition = SCHEMA_PATH.read_text().split("CREATE TABLE IF NOT EXISTS incoming_messages (", 1)[1].split(");", 1)[0]
+            connection.execute("PRAGMA foreign_keys = OFF")
+            try:
+                connection.execute("BEGIN IMMEDIATE")
+                connection.execute("CREATE TABLE incoming_messages_new (" + new_definition + ")")
+                connection.execute("INSERT INTO incoming_messages_new SELECT * FROM incoming_messages")
+                connection.execute("DROP TABLE incoming_messages")
+                connection.execute("ALTER TABLE incoming_messages_new RENAME TO incoming_messages")
+                if connection.execute("PRAGMA foreign_key_check").fetchall():
+                    raise OrderClerkError("Database upgrade failed its relationship checks.")
+                connection.commit()
+            except Exception:
+                connection.rollback()
+                raise
+            finally:
+                connection.execute("PRAGMA foreign_keys = ON")
+            connection.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
         product_count = connection.execute("SELECT COUNT(*) FROM products").fetchone()[0]
         if product_count == 0:
             connection.executescript(SEED_PATH.read_text(encoding="utf-8"))
@@ -214,7 +233,11 @@ class OpenAIExtractor:
         return Extraction(items, notes, self.mode, self.model, self.unverified)
 
 
-def configured_extractor() -> FixtureExtractor | OpenAIExtractor:
+def configured_extractor() -> Any:
+    if os.environ.get("ORDERCLERK_PROVIDER") == "ollama":
+        from .ollama_provider import OllamaExtractor
+        return OllamaExtractor(os.environ.get("ORDERCLERK_MODEL", "qwen2.5:3b"),
+                               os.environ.get("ORDERCLERK_OLLAMA_HOST", "http://127.0.0.1:11434"))
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     if not api_key:
         return FixtureExtractor()
@@ -236,7 +259,7 @@ class OrderService:
             "label": (
                 "Offline fixture parser - live AI unverified"
                 if self.extractor.unverified
-                else f"Live OpenAI extraction - {self.extractor.model}"
+                else f"{self.extractor.mode.title()} model - {self.extractor.model}"
             ),
         }
 

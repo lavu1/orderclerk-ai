@@ -30,9 +30,9 @@ Paste a message, use AI to extract a proposed order, validate against the catalo
 - [x] An ambiguous product or absent quantity becomes a review item.
 - [x] Replaying a message does not create another order.
 - [x] Money calculations use integer minor units and match the catalogue.
-- [ ] The final demonstration includes a real model call; fixture results are labeled.
+- [x] The final demonstration includes real Ollama model calls; fixture results are separately labeled.
 
-The first four criteria are implemented with automated coverage. The live-model criterion is blocked only by missing local `OPENAI_API_KEY` access; fixture output is labeled `fixture_unverified` throughout.
+All listed workflow criteria have automated coverage. Four real local-model scenarios are recorded separately in submission/LIVE_MODEL_EVIDENCE.json. The optional OpenAI provider remains unverified.
 
 ## Demonstration value
 

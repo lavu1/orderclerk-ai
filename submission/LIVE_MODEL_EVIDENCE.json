@@ -1,0 +1,209 @@
+{
+  "verified_at": "2026-09-11T19:49:27.398275+00:00",
+  "synthetic": true,
+  "provider": "ollama",
+  "model": "qwen2.5:3b",
+  "prior_issue": "An early model inferred a missing quantity. Quantities now require exact number tokens next to their product in the input; code converts tokens to integers.",
+  "runs": [
+    {
+      "case": "clear",
+      "passed": true,
+      "duration_seconds": 2.79,
+      "input": "Please pack two bags of rice and one bottle of oil.",
+      "result": {
+        "outcome": "reserved",
+        "replayed": false,
+        "message": {
+          "id": 1,
+          "external_ref": "LIVE-clear",
+          "customer": "Demo Customer",
+          "body": "Please pack two bags of rice and one bottle of oil.",
+          "status": "processed",
+          "created_at": "2026-09-11 19:49:30"
+        },
+        "extraction": {
+          "items": [
+            {
+              "product": "rice",
+              "quantity_text": "two",
+              "quantity": 2
+            },
+            {
+              "product": "oil",
+              "quantity_text": null,
+              "quantity": 1
+            }
+          ],
+          "notes": [],
+          "mode": "ollama",
+          "model": "qwen2.5:3b",
+          "unverified": false
+        },
+        "review_items": [],
+        "order": {
+          "id": 1,
+          "status": "reserved",
+          "currency": "ZMW",
+          "created_at": "2026-09-11 19:49:30",
+          "total_minor": 15500,
+          "items": [
+            {
+              "sku": "OIL-1L",
+              "name": "Cooking oil 1L",
+              "unit": "bottle",
+              "quantity": 1,
+              "unit_price_minor": 4500,
+              "line_total_minor": 4500,
+              "reservation_status": "active"
+            },
+            {
+              "sku": "RICE-2KG",
+              "name": "Rice 2kg",
+              "unit": "bag",
+              "quantity": 2,
+              "unit_price_minor": 5500,
+              "line_total_minor": 11000,
+              "reservation_status": "active"
+            }
+          ]
+        },
+        "picking_list": [
+          {
+            "sku": "OIL-1L",
+            "name": "Cooking oil 1L",
+            "quantity": 1,
+            "unit": "bottle"
+          },
+          {
+            "sku": "RICE-2KG",
+            "name": "Rice 2kg",
+            "quantity": 2,
+            "unit": "bag"
+          }
+        ]
+      }
+    },
+    {
+      "case": "missing",
+      "passed": true,
+      "duration_seconds": 0.92,
+      "input": "I want rice.",
+      "result": {
+        "outcome": "review",
+        "replayed": false,
+        "message": {
+          "id": 1,
+          "external_ref": "LIVE-missing",
+          "customer": "Demo Customer",
+          "body": "I want rice.",
+          "status": "review",
+          "created_at": "2026-09-11 19:49:31"
+        },
+        "extraction": {
+          "items": [
+            {
+              "product": "rice",
+              "quantity_text": null,
+              "quantity": null
+            }
+          ],
+          "notes": [],
+          "mode": "ollama",
+          "model": "qwen2.5:3b",
+          "unverified": false
+        },
+        "review_items": [
+          {
+            "kind": "missing_quantity",
+            "message": "How many bags of Rice 2kg are required?"
+          }
+        ],
+        "order": null,
+        "picking_list": []
+      }
+    },
+    {
+      "case": "unknown",
+      "passed": true,
+      "duration_seconds": 1.4,
+      "input": "I need 2 bags of rice and 3 mangoes.",
+      "result": {
+        "outcome": "review",
+        "replayed": false,
+        "message": {
+          "id": 1,
+          "external_ref": "LIVE-unknown",
+          "customer": "Demo Customer",
+          "body": "I need 2 bags of rice and 3 mangoes.",
+          "status": "review",
+          "created_at": "2026-09-11 19:49:32"
+        },
+        "extraction": {
+          "items": [
+            {
+              "product": "rice",
+              "quantity_text": "2",
+              "quantity": 2
+            },
+            {
+              "product": "mangoes",
+              "quantity_text": null,
+              "quantity": 3
+            }
+          ],
+          "notes": [],
+          "mode": "ollama",
+          "model": "qwen2.5:3b",
+          "unverified": false
+        },
+        "review_items": [
+          {
+            "kind": "unsupported_product",
+            "message": "Line 2: 'mangoes' is not a supported catalogue alias."
+          }
+        ],
+        "order": null,
+        "picking_list": []
+      }
+    },
+    {
+      "case": "shortage",
+      "passed": true,
+      "duration_seconds": 0.98,
+      "input": "Please send 5 bottles of oil.",
+      "result": {
+        "outcome": "review",
+        "replayed": false,
+        "message": {
+          "id": 1,
+          "external_ref": "LIVE-shortage",
+          "customer": "Demo Customer",
+          "body": "Please send 5 bottles of oil.",
+          "status": "review",
+          "created_at": "2026-09-11 19:49:33"
+        },
+        "extraction": {
+          "items": [
+            {
+              "product": "cooking oil",
+              "quantity_text": "5",
+              "quantity": 5
+            }
+          ],
+          "notes": [],
+          "mode": "ollama",
+          "model": "qwen2.5:3b",
+          "unverified": false
+        },
+        "review_items": [
+          {
+            "kind": "insufficient_stock",
+            "message": "Cooking oil 1L needs 5 bottle(s), but only 3 are available."
+          }
+        ],
+        "order": null,
+        "picking_list": []
+      }
+    }
+  ]
+}

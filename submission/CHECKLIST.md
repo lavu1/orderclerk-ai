@@ -1,31 +1,15 @@
 # Submission checklist
 
-[Event](https://hyperbloom-september.devpost.com/) · [Rules](https://hyperbloom-september.devpost.com/rules)  
-Deadline: 2026-09-14T23:00:00+02:00 (Africa/Lusaka). Source checked 11 September 2026; recheck before submission.
+Hyperbloom September deadline: 14 September 2026 at 23:00 Africa/Lusaka. Rules checked 11 September.
 
-## Eligibility and access
+- [x] Saved Devpost profile identifies a college student.
+- [x] Working local prototype and public source repository.
+- [x] Four real Ollama model scenarios and nine automated tests passed.
+- [x] 200–500 word description and AI disclosure in DESCRIPTION.md.
+- [x] Demo video rendered and reviewed; current public link status in PUBLICATION.md.
+- [ ] Required event agreement and Devpost registration.
+- [ ] Confirm entrant/team contributions in the entry form.
+- [ ] Submit project and retain receipt.
+- [ ] Complete the event's post-event feedback survey when available.
 
-- [ ] Conditional: high-school/college student event; student status has not been confirmed.
-- [x] Review the current event rules and verify the submission deadline (rechecked 11 September 2026).
-
-## Required and useful materials
-
-- [x] 200–500 word project description explaining what was built and why it matters (`DESCRIPTION.md`).
-- [ ] GitHub repository link or organizer-approved alternative.
-- [ ] Team members and contributions.
-- [x] AI tools disclosure drafted in `DESCRIPTION.md`.
-- [ ] Post-event tools feedback survey requested by the event.
-- [ ] A short demo and README are useful supporting evidence even where not explicitly listed as mandatory.
-
-## Status
-
-- [x] Workspace brief and sample scenarios prepared.
-- [x] Main local fixture workflow and tests implemented.
-- [ ] Live model test completed; blocked by missing `OPENAI_API_KEY`.
-- [x] Local fixture results verified: 6 tests passed; see `TEST_EVIDENCE.json`.
-- [x] Submission description and disclosure draft prepared.
-- [ ] External publication/form submission completed and receipt verified.
-
-No external submission has been made by creating this workspace.
-
-The separate `https://intelligent-data-hack.devpost.com/` URL was also rechecked on 11 September 2026 and currently returns Devpost's page-not-found screen; it does not supersede this project's Hyperbloom holdersterm étoilesdav brief.
+No event entry has been submitted. Offline fixtures and optional unverified OpenAI provider are distinguished from verified local-model results.

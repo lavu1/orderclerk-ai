@@ -12,3 +12,4 @@ node_modules/
 *.sqlite
 *.sqlite3
 .DS_Store
+submission/media/.render/

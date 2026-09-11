@@ -1,19 +1,7 @@
 # Access and eligibility
 
-Rechecked on 11 September 2026 against the live [overview](https://hyperbloom-september.devpost.com/) and [rules](https://hyperbloom-september.devpost.com/rules).
+Checked 11 September 2026 against Hyperbloom September rules. The entrant's saved Devpost profile identifies a college student. Registration and rules agreement remain pending.
 
-Conditional: high-school/college student event; student status has not been confirmed.
+The verified provider is local Ollama, `qwen2.5:3b`, with no API credential. Follow the README, then run `python3 scripts/verify_live.py`. Four synthetic cases passed: clear order, missing quantity, unsupported product and stock shortage. This small check is not a general accuracy benchmark. Grounding supports digits and English one through ten adjacent to known product aliases; other phrasing conservatively needs review.
 
-- [ ] Confirm student eligibility.
-- [ ] One working model API/provider and a locally configured credential. `OPENAI_API_KEY` was absent during implementation.
-- [ ] Synthetic product catalogue and customer messages supplied in this workspace.
-
-## Exact live-integration access needed
-
-1. An OpenAI API key authorized for the Responses API, supplied only as `OPENAI_API_KEY` in the local shell.
-2. Access to the configured `OPENAI_MODEL` (`gpt-5.2` by default; override for the authorized account if needed).
-3. Outbound HTTPS access to `https://api.openai.com/v1/responses`.
-
-Without that access the app automatically runs `fixture_unverified`; the interface and API label every resulting extraction. Fixture tests verify the surrounding business workflow but do not establish live model quality.
-
-Do not copy credentials into tracked project files or submission materials. The checked-in `.env.example` contains names and defaults only; this app does not load `.env` files automatically.
+The OpenAI Responses path exists but has not been verified with an authorized API key. The default offline fixture parser is clearly labeled and is not a model. No credentials or private customer records are included.

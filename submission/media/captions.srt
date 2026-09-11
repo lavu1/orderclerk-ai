@@ -1,0 +1,167 @@
+1
+00:00:00,000 --> 00:00:04,480
+OrderClerk AI is a working counter desk for a small shop receiving written
+
+2
+00:00:04,480 --> 00:00:08,961
+customer orders. A casual message can name products inconsistently, omit a quantity, or
+
+3
+00:00:08,961 --> 00:00:13,441
+ask for stock that is no longer available. The aim is to help
+
+4
+00:00:13,441 --> 00:00:17,922
+a clerk move from that message to a reliable picking list while keeping
+
+5
+00:00:17,922 --> 00:00:22,402
+uncertain orders in review. This demonstration uses fictional customers and a synthetic catalogue
+
+6
+00:00:22,402 --> 00:00:26,883
+priced in Zambian kwacha. It is a local prototype, not a connected WhatsApp
+
+7
+00:00:26,883 --> 00:00:28,261
+or production shop system.
+
+8
+00:00:29,261 --> 00:00:34,242
+The clerk supplies a customer label, a stable message reference, and the original
+
+9
+00:00:34,242 --> 00:00:39,223
+order message. The verified provider is Ollama running the pretrained Qwen two point
+
+10
+00:00:39,223 --> 00:00:44,204
+five, three billion parameter model. The model proposes order lines and identifies unsupported
+
+11
+00:00:44,204 --> 00:00:49,184
+products. Application code checks exact catalogue aliases and verifies explicit quantities next to
+
+12
+00:00:49,184 --> 00:00:54,165
+their products in the original message. The quantity guard supports digits and English
+
+13
+00:00:54,165 --> 00:00:59,146
+one through ten. Other or ambiguous phrasing is routed to review instead of
+
+14
+00:00:59,146 --> 00:01:00,679
+receiving an invented number.
+
+15
+00:01:01,679 --> 00:01:05,970
+The message asks for two bags of rice and one bottle of oil.
+
+16
+00:01:05,970 --> 00:01:10,261
+The resulting order contains exactly those lines, using stored prices of fifty five
+
+17
+00:01:10,261 --> 00:01:14,552
+kwacha per rice bag and forty five per oil bottle. The total is
+
+18
+00:01:14,552 --> 00:01:18,844
+one hundred and fifty five kwacha. Stock falls from ten rice bags to
+
+19
+00:01:18,844 --> 00:01:23,135
+eight, and from three oil bottles to two. The picking list can be
+
+20
+00:01:23,135 --> 00:01:27,426
+downloaded as CSV. This screen also shows replay: submitting the same message reference
+
+21
+00:01:27,426 --> 00:01:30,727
+returns the original order without reserving stock a second time.
+
+22
+00:01:31,727 --> 00:01:36,223
+The next message says, I want rice. It contains no requested quantity, so
+
+23
+00:01:36,223 --> 00:01:40,719
+the system asks how many bags are required and creates no order or
+
+24
+00:01:40,719 --> 00:01:45,215
+reservation. This behavior was not assumed. An early model call guessed a quantity
+
+25
+00:01:45,215 --> 00:01:49,711
+of one, which led to the source grounding guard. A model suggestion is
+
+26
+00:01:49,711 --> 00:01:54,207
+accepted only after the application finds a valid explicit quantity for the product.
+
+27
+00:01:54,207 --> 00:01:58,702
+This conservative boundary is useful because an invented number can become a real
+
+28
+00:01:58,702 --> 00:01:59,394
+picking mistake.
+
+29
+00:02:00,394 --> 00:02:06,059
+Here the customer asks for five oil bottles. Only two remain after the
+
+30
+00:02:06,059 --> 00:02:11,725
+first order, so the application reports the shortage and leaves stock unchanged. The
+
+31
+00:02:11,725 --> 00:02:17,390
+same review path handles unsupported products. A normalized SQLite database separates customers, incoming
+
+32
+00:02:17,390 --> 00:02:23,055
+messages, products, aliases, orders, line items, stock movements, reservations and events. Integer minor
+
+33
+00:02:23,055 --> 00:02:28,720
+units avoid floating point money errors. A write transaction serializes stock decisions so
+
+34
+00:02:28,720 --> 00:02:32,643
+two requests cannot both reserve the same last units.
+
+35
+00:02:33,643 --> 00:02:39,229
+Nine automated tests cover the workflow, replay, concurrent stock protection, HTTP interface, source
+
+36
+00:02:39,229 --> 00:02:44,816
+grounding and a database upgrade that preserves saved orders. Four real model scenarios
+
+37
+00:02:44,816 --> 00:02:50,402
+passed: clear order, missing quantity, unsupported product and shortage. The repository contains the
+
+38
+00:02:50,402 --> 00:02:55,989
+scripts and observed results. This small synthetic set is not a general accuracy
+
+39
+00:02:55,989 --> 00:03:01,575
+benchmark, and no time savings or sales impact has been measured. OpenAI Codex
+
+40
+00:03:01,575 --> 00:03:07,162
+assisted with implementation and documentation, and this narration is synthetic. A separately labeled
+
+41
+00:03:07,162 --> 00:03:12,748
+offline parser is available; an optional OpenAI integration remains unverified. The next step
+
+42
+00:03:12,748 --> 00:03:16,186
+is shop owner feedback and broader language testing.

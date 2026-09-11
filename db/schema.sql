@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS incoming_messages (
  id INTEGER PRIMARY KEY, external_ref TEXT NOT NULL UNIQUE,
  customer_id INTEGER NOT NULL REFERENCES customers(id), body TEXT NOT NULL,
  body_sha256 TEXT NOT NULL,
- extraction_mode TEXT NOT NULL CHECK(extraction_mode IN ('openai','fixture_unverified')),
+ extraction_mode TEXT NOT NULL CHECK(extraction_mode IN ('openai','ollama','fixture_unverified')),
  model_name TEXT NOT NULL,
  extraction_json TEXT NOT NULL,
  status TEXT NOT NULL DEFAULT 'new' CHECK(status IN ('new','review','processed')),

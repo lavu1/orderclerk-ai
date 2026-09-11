@@ -34,7 +34,7 @@ def main() -> int:
             "concurrent oversell protection",
             "HTTP page, health, and processing smoke flow",
         ],
-        "missing_live_access": "Set OPENAI_API_KEY to an authorized OpenAI API key, then run a demo message.",
+        "live_evidence": "Separate opt-in Ollama checks: scripts/verify_live.py and submission/LIVE_MODEL_EVIDENCE.json",
     }
     output_path = PROJECT_DIR / "submission" / "TEST_EVIDENCE.json"
     output_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

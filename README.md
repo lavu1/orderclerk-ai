@@ -1,6 +1,6 @@
 # OrderClerk AI
 
-**Status: working local prototype; fixture workflow implemented and live model verification awaiting an authorized API key.**
+**Status: working local prototype with four verified local-model scenarios and nine passing automated tests.**
 
 Messages contain inconsistent product names and missing quantities, requiring repeated catalogue checks and corrections.
 
@@ -9,7 +9,7 @@ Track: AI/ML
 Deadline: **2026-09-14 23:00 Africa/Lusaka (UTC+2)**, checked 11 September 2026.  
 Rewards: Advertised $1,710 value comprises memberships, domains and platform credits in the prize descriptions; no cash payout established.
 
-**Eligibility:** Conditional: high-school/college student event; student status has not been confirmed.
+**Eligibility:** The saved Devpost profile identifies the entrant as a college student; event registration and required agreement remain pending.
 
 **Focused build estimate:** 4–6 hours for one working input-to-order flow with an available model API; allow additional recording time. This is a planning estimate, not a promise of completion or a prize.
 
@@ -19,7 +19,7 @@ Paste a message, extract a proposed order, validate exact aliases and quantities
 
 Audience: A small shop owner processing batches of written customer orders.
 
-The current machine has no `OPENAI_API_KEY`, so local evidence uses a deterministic fixture parser that is prominently labeled **unverified** in the UI and API. When an authorized key is available, the application calls the OpenAI Responses API with a strict JSON Schema; all catalogue, price, idempotency, and stock decisions remain in domain code.
+The verified AI path uses Ollama with `qwen2.5:3b`. The model identifies order lines; code extracts explicit quantities adjacent to a supported product alias in the original message, reads prices from the catalogue and transactionally reserves stock. A model-invented quantity cannot supply a missing number. Conservative quantity matching currently supports digits or English one through ten; unsupported or ambiguous phrasing stays in review. See [live evidence](submission/LIVE_MODEL_EVIDENCE.json).
 
 ## Run locally
 
@@ -32,13 +32,16 @@ python3 run.py --port 5184
 
 Open `http://127.0.0.1:5184`. The database is created at `var/orderclerk.db`.
 
-For live extraction, configure credentials in the shell (do not add them to tracked files):
+For the verified local AI path, install Ollama from its official distribution, start `ollama serve`, then:
 
 ```sh
-export OPENAI_API_KEY="your-authorized-key"
-export OPENAI_MODEL="gpt-5.2"
+ollama pull qwen2.5:3b
+export ORDERCLERK_PROVIDER=ollama
+export ORDERCLERK_MODEL=qwen2.5:3b
 python3 run.py --port 5184
 ```
+
+This needs sufficient memory for the approximately 1.9 GB model and runtime. No paid API key is required. Without a configured provider, the application uses a visibly labeled deterministic fixture parser. The optional OpenAI Responses integration (`OPENAI_API_KEY`, `OPENAI_MODEL`) remains implemented but has not been live-verified. Do not commit credentials.
 
 ## Test
 
@@ -46,7 +49,7 @@ python3 run.py --port 5184
 python3 scripts/verify.py
 ```
 
-The runner covers the clear, clarification, replay, shortage, concurrent reservation, and HTTP smoke paths, then writes `submission/TEST_EVIDENCE.json`.
+The runner covers clear orders, review, replay, shortages, concurrent reservations, quantity grounding, database migration and HTTP. It writes `submission/TEST_EVIDENCE.json`. To reproduce four isolated real-model cases while Ollama is running, run `python3 scripts/verify_live.py`. Live model results are kept separately from offline tests.
 
 ## Files
 

@@ -251,3 +251,6 @@ footer { display: flex; justify-content: space-between; border-top: 2px solid va
   .activity-item span { grid-column: 2; }
   footer { flex-direction: column; gap: 8px; }
 }
+
+/* The result layout must respect native hidden state. */
+[hidden] { display: none !important; }
