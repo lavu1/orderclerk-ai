@@ -1,5 +1,6 @@
 # OrderClerk AI
 
+**[Watch the public demo](https://youtu.be/7-kNizNMjG0) · [Browse source](https://github.com/lavu1/orderclerk-ai)**
 **Status: working local prototype with four verified local-model scenarios and nine passing automated tests.**
 
 Messages contain inconsistent product names and missing quantities, requiring repeated catalogue checks and corrections.
